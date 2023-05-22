@@ -5,7 +5,7 @@ import Card from '../../shared/components/UIElements/Card';
 import './PlaceList.css';
 
 export default function PlaceList(props) {
-    if (props.items.lengtn === 0) {
+    if (props.items.length === 0) {
         return (
             <div className='place-list center'>
                 <Card>
