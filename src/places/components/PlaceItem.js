@@ -40,7 +40,7 @@ export default function PlaceItem(props) {
                     </div>
                     <div className='place-item__actions'>
                         <Button inverse onClick={openMapHandler}>VIEW ON MAP</Button>
-                        <Button to={`places/${props.id}`}>EDIT</Button>
+                        <Button to={`/places/${props.id}`}>EDIT</Button>
                         <Button danger>DELETE</Button>
                     </div>
                 </Card>
