@@ -6,6 +6,7 @@ import {
   Switch
 } from 'react-router-dom';
 
+import Auth from './user/pages/Auth';
 import Users from './user/pages/Users';
 import NewPlace from './places/pages/NewPlace';
 import UserPlaces from './places/pages/UserPlaces';
@@ -22,7 +23,7 @@ const App = () => {
     script.async = true;
     document.body.appendChild(script);
   }, []);
-  
+
   return (
     <Router>
       <MainNavigation />
@@ -39,6 +40,9 @@ const App = () => {
           </Route>
           <Route path="/places/:placeId">
             <UpdatePlace />
+          </Route>
+          <Route path='/auth'>
+            <Auth />
           </Route>
           <Redirect to="/" />
         </Switch>
