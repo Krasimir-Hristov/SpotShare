@@ -11,7 +11,7 @@ export default function Auth() {
 
     const [isLoginMode, setIsLoginMode] = useState(true);
 
-    const [formState, inputHandler] = useForm({
+    const [formState, inputHandler, setFormData] = useForm({
         email: {
             value: '',
             isValid: false
@@ -23,6 +23,27 @@ export default function Auth() {
     }, false);
 
     const switchModeHandler = () => {
+
+        if (!isLoginMode) {
+            setFormData(
+                {
+                    ...formState.inputs,
+                    name: undefined
+                },
+                formState.inputs.email.isValid && formState.inputs.password.isValid
+            );
+        } else {
+            setFormData({
+                ...formState.inputs,
+                name: {
+                    value: '',
+                    isValid: false
+                }
+            },
+                false
+            );
+        }
+
         setIsLoginMode(prevMode => !prevMode);
     };
 
@@ -46,6 +67,7 @@ export default function Auth() {
                         errorText='Please eneter a name.'
                         onInput={inputHandler}
                     />
+                    
                 )}
                 <Input
                     element='input'
