@@ -87,9 +87,11 @@ export default function PlaceItem(props) {
                     <div className='place-item__actions'>
                         <Button inverse onClick={openMapHandler}>VIEW ON MAP</Button>
 
-                        {auth.isLoggedIn && <Button to={`/places/${props.id}`}>EDIT</Button>}
+                        {auth.userId === props.creatorId &&
+                            (<Button to={`/places/${props.id}`}>EDIT</Button>)}
 
-                        {auth.isLoggedIn && <Button danger onClick={showDeleteWatningHandler}>DELETE</Button>}
+                        {auth.userId === props.creatorId &&
+                            (<Button danger onClick={showDeleteWatningHandler}>DELETE</Button>)}
                     </div>
                 </Card>
             </li>

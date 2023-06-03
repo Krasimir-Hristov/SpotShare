@@ -134,7 +134,7 @@ export default function Auth() {
                         type='password'
                         label='Password'
                         validators={[VALIDATOR_MINLENGTH(6)]}
-                        errorText='Please enter a valid password, at least 5 characters.'
+                        errorText='Please enter a valid password, at least 6 characters.'
                         onInput={inputHandler}
                     />
 
