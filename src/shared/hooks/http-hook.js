@@ -1,67 +1,56 @@
-import { useCallback, useState, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect } from 'react';
 
 export const useHttpClient = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(undefined);
+  const activeHttpRequests = useRef([]);
 
-    const activeHttpRequests = useRef([]);
+  const sendRequest = useCallback(
+    async (url, method = 'GET', body = null, headers = {}) => {
+      setIsLoading(true);
+      const httpAbortCtrl = new AbortController();
+      activeHttpRequests.current.push(httpAbortCtrl);
 
-    const sendRequest = useCallback(async (
-        url,
-        method = 'GET',
-        body = null,
-        headers = {}
-    ) => {
+      try {
+        const response = await fetch(url, {
+          method,
+          body,
+          headers,
+          signal: httpAbortCtrl.signal
+        });
 
-        setIsLoading(true);
+        const responseData = await response.json();
 
-        const httpAbortController = new AbortController();
-        activeHttpRequests.current.push(httpAbortController);
+        activeHttpRequests.current = activeHttpRequests.current.filter(
+          reqCtrl => reqCtrl !== httpAbortCtrl
+        );
 
-        try {
-
-            const response = await fetch(url, {
-                method,
-                body,
-                headers,
-                signal: httpAbortController.signal
-            });
-
-            const responseData = await response.json();
-
-            activeHttpRequests.current = activeHttpRequests.current.filter(
-                reqController => reqController !== httpAbortController
-            );
-
-            if (!response.ok) {
-                throw new Error(responseData.message);
-            }
-
-            setIsLoading(false);
-
-            return responseData;
-        } catch (err) {
-
-            setError(err.message);
-            setIsLoading(false);
-            throw err;
+        if (!response.ok) {
+          throw new Error(responseData.message);
         }
 
-    }, []);
+        setIsLoading(false);
+        return responseData;
+      } catch (err) {
+        setError(err.message);
+        setIsLoading(false);
+        throw err;
+      }
+    },
+    []
+  );
 
-    const clearError = () => {
+  const clearError = () => {
+    setError(null);
+  };
 
-        setError(null);
+  useEffect(() => {
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      activeHttpRequests.current.forEach(abortCtrl => abortCtrl.abort());
     };
+  }, []);
 
-    useEffect(() => {
-
-        return () => {
-
-            activeHttpRequests.current.forEach(abortController => abortController.abort());
-        };
-    }, []);
-
-    return { isLoading, error, sendRequest, clearError }
+  return { isLoading, error, sendRequest, clearError };
 };
