@@ -81,7 +81,7 @@ const Auth = () => {
           }
         );
         auth.login(responseData.user.id);
-      } catch (err) {}
+      } catch (err) { }
     } else {
       try {
         const formData = new FormData();
@@ -96,7 +96,7 @@ const Auth = () => {
         );
 
         auth.login(responseData.user.id);
-      } catch (err) {}
+      } catch (err) { }
     }
   };
 
@@ -120,7 +120,12 @@ const Auth = () => {
             />
           )}
           {!isLoginMode && (
-            <ImageUpload center id="image" onInput={inputHandler} />
+            <ImageUpload
+              center
+              id="image"
+              onInput={inputHandler}
+              errorText='Please provide and image.'
+            />
           )}
           <Input
             element="input"
