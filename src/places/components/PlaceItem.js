@@ -21,16 +21,21 @@ const PlaceItem = props => {
   const closeMapHandler = () => setShowMap(false);
 
   const showDeleteWarningHandler = () => {
+
     setShowConfirmModal(true);
   };
 
   const cancelDeleteHandler = () => {
+
     setShowConfirmModal(false);
   };
 
   const confirmDeleteHandler = async () => {
+
     setShowConfirmModal(false);
+    
     try {
+
       await sendRequest(
         `http://localhost:5000/api/places/${props.id}`,
         'DELETE',

@@ -21,24 +21,37 @@ const App = () => {
   const [token, setToken] = useState(false);
   const [userId, setUserId] = useState(null);
 
-  const login = useCallback((userId, token) => {
-
-    setToken(token);
-    setUserId(userId);
-  }, []);
-
-  const logout = useCallback(() => {
-
-    setToken(null);
-    setUserId(null);
-  }, []);
-
   useEffect(() => {
     const script = document.createElement('script');
     script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
     script.async = true;
     document.body.appendChild(script);
   }, []);
+
+  const login = useCallback((userId, token) => {
+
+    setToken(token);
+    setUserId(userId);
+    localStorage.setItem('userData', JSON.stringify({ userId: userId, token: token }));
+  }, []);
+
+  const logout = useCallback(() => {
+
+    setToken(null);
+    setUserId(null);
+    
+    localStorage.removeItem('userData');
+  }, []);
+
+  useEffect(() => {
+
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+
+    if (storedData && storedData.token) {
+
+      login(storedData.userId, storedData.token);
+    }
+  }, [login]);
 
   let routes = undefined;
 
