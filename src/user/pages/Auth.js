@@ -80,10 +80,12 @@ const Auth = () => {
             'Content-Type': 'application/json'
           }
         );
-        auth.login(responseData.user.id);
+        
+        auth.login(responseData.userId, responseData.token);
       } catch (err) { }
     } else {
       try {
+
         const formData = new FormData();
         formData.append('email', formState.inputs.email.value);
         formData.append('name', formState.inputs.name.value);
@@ -95,7 +97,7 @@ const Auth = () => {
           formData
         );
 
-        auth.login(responseData.user.id);
+        auth.login(responseData.userId, responseData.token);
       } catch (err) { }
     }
   };
