@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -20,12 +20,6 @@ import { useAuth } from './shared/hooks/auth-hook';
 
 const App = () => {
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
 
   const { token, login, logout, userId } = useAuth();
 
