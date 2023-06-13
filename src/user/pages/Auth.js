@@ -80,12 +80,10 @@ const Auth = () => {
             'Content-Type': 'application/json'
           }
         );
-        
         auth.login(responseData.userId, responseData.token);
-      } catch (err) { }
+      } catch (err) {}
     } else {
       try {
-
         const formData = new FormData();
         formData.append('email', formState.inputs.email.value);
         formData.append('name', formState.inputs.name.value);
@@ -98,7 +96,7 @@ const Auth = () => {
         );
 
         auth.login(responseData.userId, responseData.token);
-      } catch (err) { }
+      } catch (err) {}
     }
   };
 
@@ -126,7 +124,7 @@ const Auth = () => {
               center
               id="image"
               onInput={inputHandler}
-              errorText='Please provide and image.'
+              errorText="Please provide an image."
             />
           )}
           <Input

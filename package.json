@@ -3,17 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "5.3.4",
+    "react": "^18.3.0-canary-88df88f94-20230613",
+    "react-dom": "^18.3.0-canary-88df88f94-20230613",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
-    "react-transition-group": "^4.4.5"
+    "react-transition-group": "^4.3.0"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts --openssl-legacy-provider build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "node --openssl-legacy-provider ./node_modules/react-scripts/scripts/start.js",
+    "build": "node --openssl-legacy-provider ./node_modules/react-scripts/scripts/build.js",
+    "test": "node --openssl-legacy-provider ./node_modules/react-scripts/scripts/test.js"
   },
   "eslintConfig": {
     "extends": "react-app"

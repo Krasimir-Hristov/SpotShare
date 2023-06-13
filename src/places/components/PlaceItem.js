@@ -21,21 +21,16 @@ const PlaceItem = props => {
   const closeMapHandler = () => setShowMap(false);
 
   const showDeleteWarningHandler = () => {
-
     setShowConfirmModal(true);
   };
 
   const cancelDeleteHandler = () => {
-
     setShowConfirmModal(false);
   };
 
   const confirmDeleteHandler = async () => {
-
     setShowConfirmModal(false);
-    
     try {
-
       await sendRequest(
         process.env.REACT_APP_BACKEND_URL + `/api/places/${props.id}`,
         'DELETE',
@@ -89,7 +84,7 @@ const PlaceItem = props => {
           {isLoading && <LoadingSpinner asOverlay />}
           <div className="place-item__image">
             <img
-              src={process.env.REACT_APP_BACKEND_URL + `/${props.image}`}
+              src={ process.env.REACT_APP_BACKEND_URL + `/${props.image}`}
               alt={props.title}
             />
           </div>
